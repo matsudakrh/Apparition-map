@@ -1,0 +1,14 @@
+section#top.top.page.current
+	.page-inner
+		h2 トップ画面
+		form#nameForm(method="post", action="/map/index.html")
+			h3: label(for="name") 妖怪名で検索
+			input#name(type="search", name="name")
+			button(type="submit") 検索
+
+		form#placeForm(method="post", action="/map/index.html")
+			h3: label(for="place") 場所で検索
+			input#place(type="search", name="place")
+			button(type="submit") 検索
+		
+		#mapResult

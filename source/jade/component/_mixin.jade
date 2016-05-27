@@ -1,0 +1,14 @@
+mixin loadJQuery( version )
+	script(src="//ajax.googleapis.com/ajax/libs/jquery/#{ version }/jquery.min.js")
+	script.
+		window.jQuery || document.write("<script src='/js/jquery.min.js'><\/script>");
+
+
+mixin article(title)
+	article
+		.inner
+			h1= title
+			if block
+				block
+			else
+				p No content provided

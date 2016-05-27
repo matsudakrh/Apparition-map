@@ -1,0 +1,25 @@
+extends component/_layout
+
+block pageTitle
+	title Mapアプリ
+
+block css
+	link(rel="stylesheet", href="/css/jqMini.min.css")
+	link(rel="stylesheet", href="/css/map.min.css")
+	link(rel="stylesheet", href="/css/index.min.css")
+
+block script
+	script(src="/js/dist/jquery.min.js")
+	script(src="/js/jqMini.js")
+	script(src="/js/map.js")
+	script(src="/js/index.js")
+
+block main
+	main#jqMini.jqMini
+		block top
+			include _top
+			include _test
+		block search
+			include map/_index
+			include map/_searchList
+			include map/_searchResult
