@@ -1,6 +1,9 @@
 section#resultList.page
+
+	h1(ng-show="0") 検索結果
 	.page-inner
 		ul
-			li
+			li(ng-repeat="item in MainC.searchList track by item.id")
 				p テスト
-				span {{place}}
+				p {{item.name}}
+				p {{item.id}}

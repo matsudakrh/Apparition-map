@@ -7,12 +7,37 @@ block css
 	link(rel="stylesheet", href="/css/jqMini.min.css")
 	link(rel="stylesheet", href="/css/map.min.css")
 	link(rel="stylesheet", href="/css/index.min.css")
-
 block script
-	script(src="/js/dist/jquery.min.js")
-	script(src="/js/jqMini.js")
+	script(src="/js/angular.min.js")
 	script(src="/js/map.js")
 	script(src="/js/index.js")
+	script(src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js")
+	script(src="/js/jqMini.js")
+	script.
+		var jqMiniOpt = {
+		};
+
+		var $jqMini = $('#jqMini');
+
+		$jqMini.jqMini(jqMiniOpt);
+		$jqMini.on('jqMiniEvent.changeEnd', function () {
+			currentPosition();
+		});
+
+		var HTML_WIDTH = "640";
+
+		$(function () {
+			$(window).resize(function () {
+				setZoom()
+			});
+			setZoom();
+		});
+
+		function setZoom() {
+			var scale = $(window).width() / HTML_WIDTH * 100 + "%";
+			$('html').css({'zoom': scale});
+		}
+
 
 block main
 	main#jqMini.jqMini
