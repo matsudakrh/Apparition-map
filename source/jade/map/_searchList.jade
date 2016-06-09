@@ -1,9 +1,13 @@
 section#resultList.page
-
-	h1(ng-show="0") 検索結果
+	h2 検索ワード：{{MainC.searchPlaceText}}
 	.page-inner
 		ul
-			li(ng-repeat="item in MainC.searchList track by item.id")
+			li(ng-repeat="item in MainC.searchList track by item.place_id", ng-click="MainC.viewGeoMap(item.geometry.location.lat(), item.geometry.location.lng(), item.place_id)")
 				p テスト
 				p {{item.name}}
-				p {{item.id}}
+				p {{item.place_id}}
+				p {{item.formatted_address}}
+				p {{item.geometry.location.lat()}}
+				p {{item.geometry.location.lng()}}
+				p {{$index + 1}}
+				//img(src="", alt="")

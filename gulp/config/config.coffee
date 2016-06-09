@@ -16,7 +16,7 @@ module.exports =
       publicJS: baseConfig.publicDir + 'js/'
 
     server:
-      livereload: true
+      livereload: false
       root: baseConfig.publicDir
       port: 8080
       open: false

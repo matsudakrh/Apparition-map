@@ -24,7 +24,7 @@ block script
 			currentPosition();
 		});
 
-		var HTML_WIDTH = "640";
+		var HTML_WIDTH = "380";
 
 		$(function () {
 			$(window).resize(function () {
@@ -38,7 +38,54 @@ block script
 			$('html').css({'zoom': scale});
 		}
 
+	// 公式のナビゲーション用コードのコピペ
+	script.
+		var directionsDisplay;
+		var directionsService = new google.maps.DirectionsService();
+		var map;
 
+		function initialize() {
+			directionsDisplay = new google.maps.DirectionsRenderer();
+			var chicago = new google.maps.LatLng(41.850033, -87.6500523);
+			var mapOptions = {
+				zoom: 7,
+				center: chicago
+			}
+			map = new google.maps.Map(document.getElementById("routeMap"), mapOptions);
+			directionsDisplay.setMap(map);
+		}
+
+		function calcRoute() {
+			var startVal = document.getElementById("start").value;
+			var endVal = document.getElementById("end").value;
+			console.log(startVal);
+			console.log(endVal);
+			var request = {
+				origin: startVal,
+				destination: endVal,
+				travelMode: google.maps.TravelMode.DRIVING
+			};
+			directionsService.route(request, function (result, status) {
+				if (status == google.maps.DirectionsStatus.OK) {
+					console.log(result);
+					directionsDisplay.setDirections(result);
+				}
+			});
+		}
+
+		var start = document.getElementById('start');
+		var end = document.getElementById('end');
+
+		start.addEventListener('change', function () {
+			calcRoute();
+			console.log('changeEvent');
+		});
+
+		end.addEventListener('change', function () {
+			calcRoute();
+			console.log('changeEvent');
+
+		});
 block main
 	main#jqMini.jqMini
 		block top
@@ -48,3 +95,8 @@ block main
 			include map/_index
 			include map/_searchList
 			include map/_searchResult
+		block geo
+			include geo/_geo
+			include geo/_geomap
+		block route
+			include _route

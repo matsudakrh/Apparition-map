@@ -1,14 +1,14 @@
 section#top.top.page.current
 	.page-inner
 		h2 トップ画面
-		form#nameForm(method="post", action="/map/index.html")
-			h3: label(for="name") 妖怪名で検索
-			input#name(type="search", name="name")
+		form#nameForm(method="post", action="/map/index.html", ng-submit="MainC.geoTestFunc()")
+			h3: label(for="name") キーワードで検索
+			input#name(type="search", name="name", ng-model="MainC.geoKeyword")
 			button(type="submit") 検索
 
-		form#placeForm(method="post", action="/map/index.html")
-			h3: label(for="place") 場所で検索
-			input#place(type="search", name="place")
+		form#placeForm(method="post", name="placeForm", action="/map/index.html", ng-submit="MainC.searchPlace(placeForm.place.$viewValue)")
+			h3: label(for="place") 住所で検索
+			input#place(type="search", name="place", ng-model="MainC.searchPlaceText")
 			button(type="submit") 検索
 		
 		#mapResult
