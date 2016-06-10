@@ -37,9 +37,6 @@ app.controller( 'MainController', function ( $scope ) {
     var $nameForm = document.getElementById('nameForm');
     var canvas = document.getElementById('mapResult');
 
-    var $name = document.getElementById('name');
-    var $place = document.getElementById('place');
-
     var geocoder = new google.maps.Geocoder();
 
     var virtualLink = document.createElement('a');
@@ -129,13 +126,8 @@ app.controller( 'MainController', function ( $scope ) {
         function getSuccessGeo( position ) {
 
             canvas.classList.remove('loading');
-            var lat = position.coords.latitude;
-            var lng = position.coords.longitude;
 
-            self.currentLat = lat;
-            self.currentLng = lng;
-
-            var latlng = new google.maps.LatLng( lat , lng );
+            var latlng = new google.maps.LatLng( self.currentLat , self.currentLng );
 
             self.geoPosition = latlng;
             var mapOptions = {
@@ -159,9 +151,18 @@ app.controller( 'MainController', function ( $scope ) {
 
         if( navigator.geolocation ) {
 
-            navigator.geolocation.getCurrentPosition( function ( position ) {
+            navigator.geolocation.watchPosition( function ( position ) {
+
+
+                //var lat = position.coords.latitude;
+                //var lng = position.coords.longitude;
+
+                self.currentLat = position.coords.latitude;
+                self.currentLng = position.coords.longitude;
 
                 getSuccessGeo(position);
+
+
 
             } , function () {
 
@@ -176,11 +177,9 @@ app.controller( 'MainController', function ( $scope ) {
     }
     currentPosition();
 
-    var $mapBtn = document.getElementById('mapBtn');
-
-    $mapBtn.addEventListener( 'click', function () {
+    self.mapBtnFunc = function () {
         currentPosition();
-    });
+    };
 
 
     self.viewResult = function () {
@@ -236,22 +235,55 @@ app.controller( 'MainController', function ( $scope ) {
         virtualLink.href = '#geoMap';
         virtualLink.click();
 
-        var request={
+        var request = {
             location: latlng,
             placeId: pId,
             radius: 2000 /* 指定した座標から半径50m以内 */
         };
         console.log(pId);
-
-        service.getDetails( request, function ( place, status ) {
-            if ( !place ) {
-                return;
-            }
-            console.log(place);
-        });
+        //
+        // service.getDetails( request, function ( place, status ) {
+        //     if ( !place ) {
+        //         return;
+        //     }
+        //     console.log(place);
+        // });
 
     };
 
+
+    self.navStart = function () {
+
+        navigator.geolocation.watchPosition( function ( position ) {
+
+            
+        } , function () {
+
+        } , {
+            enableHighAccuracy: true, // 精度を出来る限り高める
+            timeout: 100000, // タイムアウト設定
+            maximumAge: 100000 // ミリ秒間位置情報のキャッシュを保持
+        } ) ;
+
+
+        function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+            directionsService.route({
+                origin: document.getElementById('start').value,
+                destination: document.getElementById('end').value,
+                travelMode: google.maps.TravelMode.DRIVING
+            }, function(response, status) {
+                if (status === google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                    console.log(response.routes[0]);
+                    console.log(response.routes[0].legs[0]);
+                    console.log(response.routes[0].legs[0].steps[0]);
+                    console.log(response.routes[0].legs[0].steps[0].instructions);
+                } else {
+                    window.alert('Directions request failed due to ' + status);
+                }
+            });
+        }
+    };
 
 
 });
