@@ -3,16 +3,22 @@
 @import 'header'
 @import 'footer'
 
+$main-c: rgb(158, 82, 53)
+
 html
   font-size: 62.5%
 
 body
   +font_size(16)
-  font-family: "Lato", "游ゴシック" , "Yu Gothic" , Helvetica ,"ヒラギノ角ゴシック Pro", "Hiragino Kaku Gothic Pro", sans-serif
+  font-family: "Lato", serif , "游ゴシック" , "Yu Gothic" , Helvetica ,"ヒラギノ角ゴシック Pro", "Hiragino Kaku Gothic Pro", sans-serif
   color: #616161
+  background: rgba( $main-c, 0.4 )
+  //user-select: none
+  cursor: default
 
 a
   text-decoration: none
+  color: inherit
 
 h1, h2, p
   margin: 0
@@ -21,10 +27,24 @@ ul, ol
   padding: 0
   list-style: none
 
+input, textarea, button
+  -webkit-appearance: none !important
+  -moz-appearance: none !important
+  border: none
+  border-radius: 0
+  box-shadow: none
+  &:focus
+    outline: none
+  &:active
+    border: none
+
+
 
 img
   max-width: 100%
 
+.page-inner
+  height: 100vhs
 
 .loading
   $bg: '/images/ajax-loader.gif'
@@ -35,3 +55,18 @@ img
   opacity: 0
   &.current
     opacity: 1
+
+.header-form
+  background: $main-c
+  padding: 12px 20px
+  display: flex
+  flex-flow: row nowrap
+  justify-content: space-between
+  align-items: center
+  .material-icons
+    font-size: 30px
+    color: #fff
+    vertical-align: middle
+  input[type="submit"]
+    color: #fff
+    background: $main-c

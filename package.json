@@ -5,14 +5,15 @@
   "main": "gulpfile.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "default": "gulp config && gulp",
-    "server": "gulp server;gulp watch",
+    "default": "gulp",
+    "server": "gulp server",
     "config": "gulp config"
   },
   "author": "Hiroki Matsuda",
   "license": "ISC",
   "devDependencies": {
     "angular": "^1.5.5",
+    "angular-sanitize": "^1.5.7",
     "coffee-script": "^1.10.0",
     "event-stream": "^3.3.2",
     "gulp": "^3.9.0",

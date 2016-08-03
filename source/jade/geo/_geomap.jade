@@ -2,7 +2,9 @@ section#geoMap.page
 	.page-inner
 		//button(ng-click="MainC.viewGeoMap(MainC.geoMap.lat, MainC.geoMap.lng)") ボタン
 		#geoMapCanvas
-
 		.nav-start(ng-click="MainC.navStart()")
-			h2 この場所へ行く
-
+			h2(ng-if="!MainC.isNav") この場所へ行く
+			p(ng-if="MainC.isNav").
+				{{MainC.navText}}
+		a#backBtn.back-btn(href="#geo", ng-click="MainC.backClick()")
+			i.material-icons arrow_back

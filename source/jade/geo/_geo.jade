@@ -1,11 +1,15 @@
 section#geo.page
 	.page-inner
-		form#geoTest(method="post", name="geoTest", action="/map/searchList.html", ng-submit="MainC.geoTestFunc()")
+		form#geoTest.header-form(method="post", name="geoTest", action="/map/searchList.html", ng-submit="MainC.searchGeo(MainC.geoKeyword)")
+			a.back-btn(href="#top")
+				i.material-icons arrow_back
 			input#geoName(type="text", name="geoName", ng-model="MainC.geoKeyword")
 			input(type="submit", value="検索")
-		ul
-			li(ng-repeat="item in MainC.geoResultList track by item.place_id"
-					ng-click="MainC.viewGeoMap(item.geometry.location.lat(), item.geometry.location.lng())")
-				p {{item.formatted_address}}
-				p {{item.geometry.location.lat()}}
-				p {{item.geometry.location.lng()}}
+		ul.result-list
+			li.result-item(ng-repeat="item in MainC.geoResultList track by item.place_id",
+					ng-click="MainC.viewGeoMap(item.geometry.location.lat(), item.geometry.location.lng(), item.place_id, $index)")
+				p.address {{item.formatted_address}}
+				.latlng
+					p.lat lat:{{item.geometry.location.lat()}}
+					p.lng lng:{{item.geometry.location.lng()}}
+				hr

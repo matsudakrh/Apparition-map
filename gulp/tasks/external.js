@@ -11,5 +11,4 @@ gulp.task( 'external', function () {
         gulp.src('external/js/**/*.js')
             .pipe(gulp.dest( config.external.publicJS ));
     })();
-
 });

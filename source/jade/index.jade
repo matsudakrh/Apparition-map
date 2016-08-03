@@ -4,15 +4,15 @@ block pageTitle
 	title Mapアプリ
 
 block css
-	link(rel="stylesheet", href="/css/jqMini.min.css")
-	link(rel="stylesheet", href="/css/map.min.css")
-	link(rel="stylesheet", href="/css/index.min.css")
+	link(rel="stylesheet", href="./css/jqMini.min.css")
+	link(rel="stylesheet", href="./css/index.min.css")
+
 block script
-	script(src="/js/angular.min.js")
-	script(src="/js/map.js")
-	script(src="/js/index.js")
+	//script(src="/js/angular-sanitize.min.js")
+	script(src="./js/angular.min.js")
+	script(src="./js/index.js")
 	script(src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js")
-	script(src="/js/jqMini.js")
+	script(src="./js/jqMini.js")
 	script.
 		var jqMiniOpt = {
 		};
@@ -20,9 +20,6 @@ block script
 		var $jqMini = $('#jqMini');
 
 		$jqMini.jqMini(jqMiniOpt);
-		$jqMini.on('jqMiniEvent.changeEnd', function () {
-			currentPosition();
-		});
 
 		var HTML_WIDTH = "380";
 
@@ -38,7 +35,6 @@ block script
 			$('html').css({'zoom': scale});
 		}
 
-	// 公式のナビゲーション用コードのコピペ
 	script.
 		var directionsDisplay;
 		var directionsService = new google.maps.DirectionsService();
@@ -78,14 +74,12 @@ block script
 
 		start.addEventListener('change', function () {
 			calcRoute();
-			console.log('changeEvent');
 		});
 
 		end.addEventListener('change', function () {
 			calcRoute();
-			console.log('changeEvent');
-
 		});
+
 block main
 	main#jqMini.jqMini
 		block top
@@ -93,8 +87,7 @@ block main
 			include _test
 		block search
 			include map/_index
-			include map/_searchList
-			include map/_searchResult
+			include map/_resultList
 		block geo
 			include geo/_geo
 			include geo/_geomap

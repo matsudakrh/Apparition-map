@@ -4,6 +4,7 @@ var config = require('../config').path;
 
 gulp.task( 'library', function () {
     return gulp.src([
+        'node_modules/angular-sanitize/**/angular-sanitize.min.js',
         'node_modules/angular/**/angular.min.js',
         'node_modules/jquery/**/jquery.min.js'
     ])
